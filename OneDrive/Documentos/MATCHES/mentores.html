@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mentores Disponibles</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+   <h1 class="titulo">MENTORES ENCONTRADOS</h1>
+  <div id="listaMentores" class="container"></div>
+
+  <script>
+    const mentores = JSON.parse(localStorage.getItem('mentoresCoincidentes')) || [];
+
+    const contenedor = document.getElementById('listaMentores');
+
+    mentores.forEach(mentor => {
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <img src="${mentor.foto}" alt="Foto de ${mentor.nombre}" width="150">
+        <h2>${mentor.nombre}</h2>
+        <p><strong>Especialidad:</strong> ${mentor.especialidad}</p>
+        <p><strong>Correo:</strong> ${mentor.correo}</p>
+        <p><strong>Departamento:</strong> ${mentor.Departamento_de_Cinvestav}</p>
+        <button onclick="elegirMentor('${mentor.nombre}')">Seleccionar</button>
+      `;
+      contenedor.appendChild(div);
+    });
+
+    function elegirMentor(nombre) {
+      const seleccionado = mentores.find(m => m.nombre === nombre);
+      localStorage.setItem('mentorSeleccionado', JSON.stringify(seleccionado));
+      window.location.href = "mentor.html";
+    }
+  </script>
+</body>
+  <script src="logo.js"></script>
+</html>
